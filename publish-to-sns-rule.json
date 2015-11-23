@@ -1,0 +1,11 @@
+{
+  "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted' WHERE state.reported.current >= state.reported.current_alert",
+  "ruleDisabled": false,
+  "actions": [{
+      "sns": {
+          "targetArn": "arn:aws:sns:eu-west-1:048215596966:hi-current-alarm",
+          "roleArn": "arn:aws:iam::048215596966:role/my-iot-role"
+      }
+  }]
+}
+

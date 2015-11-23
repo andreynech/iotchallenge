@@ -1,0 +1,11 @@
+{
+  "sql": "SELECT * FROM '$aws/things/04305f26-e8c8-4326-8bba-cca827a40b9b/shadow/update/accepted'",
+  "ruleDisabled": false,
+  "actions": [{
+      "sns": {
+          "targetArn": "arn:aws:sns:eu-west-1:048215596966:hi-current-alarm",
+          "roleArn": "arn:aws:iam::048215596966:role/my-iot-role"
+      }
+  }]
+}
+
