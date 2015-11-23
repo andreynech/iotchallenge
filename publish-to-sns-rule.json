@@ -1,5 +1,5 @@
 {
-  "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted' WHERE state.reported.current >= state.reported.current_alert",
+  "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted' WHERE state.reported.current >= state.reported.current_alert  and devid <> 'env'",
   "ruleDisabled": false,
   "actions": [{
       "sns": {
