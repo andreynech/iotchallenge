@@ -8,7 +8,7 @@ if __name__ == "__main__":
         
     machine_ids = mp.machines_list()
 
-    sample = {'env': {} }
+    sample = {'envsensor': {} }
     
     for mid in machine_ids:
         sample[mid] = {}
