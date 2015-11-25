@@ -1,5 +1,5 @@
 {
-  "sql": "SELECT state.reported.current as current, state.reported.current_alert as current_alert, timestamp() as timstampint FROM '$aws/things/+/shadow/update/accepted' WHERE topic(3) <> 'envsensor'",
+  "sql": "SELECT state.reported.current as current, state.reported.current_alert as current_alert, timestamp() as timestampint FROM '$aws/things/+/shadow/update/accepted' WHERE topic(3) <> 'envsensor'",
   "ruleDisabled": false,
   "actions": [{
       "dynamoDB": {
