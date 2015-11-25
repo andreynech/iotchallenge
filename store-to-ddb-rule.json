@@ -1,0 +1,14 @@
+{
+  "sql": "SELECT state.reported.current as current, state.reported.current_alert as current_alert timestamp() as timstampint FROM '$aws/things/+/shadow/update/accepted' WHERE topic(3) <> 'envsensor'",
+  "ruleDisabled": false,
+  "actions": [{
+      "dynamoDB": {
+          "tableName": "currentusage",
+          "roleArn": "arn:aws:iam::048215596966:role/my-iot-role",
+          "hashKeyField": "deviceid",
+          "hashKeyValue": "${topic(3)}",
+          "rangeKeyField": "sampletimestamp",
+          "rangeKeyValue": "${timestamp()}"
+      }
+  }]
+}
