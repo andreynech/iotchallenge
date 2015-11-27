@@ -1,5 +1,5 @@
 {
-    "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted''",
+    "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted'",
     "ruleDisabled": false,
     "actions": [{
         "firehose": {
