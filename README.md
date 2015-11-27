@@ -26,3 +26,6 @@ Finally, there is statemonitor.py script which is permanently running on EC2 AMI
 * Update device (shadow) on AWS IoT by publishing new state to the corresonding MQTT topic associated with particular machne.
 
 State updates trigger the rule which compares current and current_allert attributes and forward state data either to the SNS subject if necessary or to DynamoDB for average calculation. It in turns triggers email notification to subscribers.
+
+# Analytics support
+To perform data analysis as requested by the thecond challenge task, we need to capture all sensor data. For these purposes we configured AWS Firehose stream to store all incoming data to S3 bucket. Later on we can load these data to AWS RedShift, AWS Machine Learning or perform custom analysis. We provide publish-to-firehose.json rule which instructs AWS IoT infrastructure to forward all machine state updates to the Firehose stream.
