@@ -1,0 +1,10 @@
+{
+    "sql": "SELECT topic(3) as devid, * FROM '$aws/things/+/shadow/update/accepted''",
+    "ruleDisabled": false,
+    "actions": [{
+        "firehose": {
+            "roleArn": ""arn:aws:iam::123456789012:role/my-iot-role",
+            "deliveryStreamName": "machinepark"
+        }
+    }]
+}
