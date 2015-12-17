@@ -32,12 +32,16 @@ def check(event, context):
             
             # Iterate over records and calculate average current usage
             for item in response['Items']:
-                timestampstr = item['sampletimestamp']
-                timestamp = datetime.fromtimestamp(float(timestampstr) / 1000.0)
-                current = float(item['payload']['current'])
-                current_alert = float(item['payload']['current_alert'])
-                current_sum += current
-                history.append((devid, timestampstr, timestamp, current, current_alert))
+                try:
+                    timestampstr = item['sampletimestamp']
+                    timestamp = datetime.fromtimestamp(float(timestampstr) / 1000.0)
+                    #logger.info('--->> {0}'.format(item['payload']))
+                    current = float(item['payload']['current'])
+                    current_alert = float(item['payload']['current_alert'])
+                    current_sum += current
+                    history.append((devid, timestampstr, timestamp, current, current_alert))
+                except KeyError as err:
+                    pass
             
             history_len = len(history)
             if history_len == 0: # Should not happen
@@ -48,7 +52,7 @@ def check(event, context):
             latest_devid, latest_timestampstr, latest_timestamp, latest_current, latest_current_alert = history[-1]
             
             avg_current = current_sum / history_len
-            logger.info(history)
+            #logger.info(history)
             logger.info('Setting avg current to {}'.format(avg_current))
 
             # See if we need to publish alert
@@ -75,7 +79,7 @@ def check(event, context):
                 candidate_id, candidate_ts_str, candidate_ts, _, _ = candidate
                 if latest_timestamp - candidate_ts > report_period:
                     del_counter += 1
-                    logger.info('Deletion candidate {0} {1}'.format(candidate_id, candidate_ts_str))
+                    #logger.info('Deletion candidate {0} {1}'.format(candidate_id, candidate_ts_str))
                     response = table.delete_item(
                         Key = {
                             'deviceid': candidate_id,
