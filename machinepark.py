@@ -9,11 +9,25 @@ machines_list_uri = api_root + 'machines'
 machine_detail_uri = api_root + 'machine/{0}'
 env_sensor_uri = api_root + 'env-sensor'
 
-        
+# Prevent more then 3 requests per minute 
+env_sensor_response = ''
+env_sensor_query_interval = timedelta(seconds = 60 / 3 + 1)
+env_sensor_last_request = datetime.now()
+
+
 def env_sensor(sample):
     """Query environmental sensor data"""
-    response = requests.get(env_sensor_uri)
-    results = json.loads(response.text)
+    global env_sensor_response
+    global env_sensor_query_interval
+    global env_sensor_last_request
+
+    if env_sensor_response == '' or datetime.now() - env_sensor_last_request > env_sensor_query_interval: 
+        # query only if enough time passed
+        response = requests.get(env_sensor_uri)
+        env_sensor_response = response.text
+        env_sensor_last_request = datetime.now()
+
+    results = json.loads(env_sensor_response)
     sample['env'] = results
     return results
 
